@@ -14,10 +14,10 @@ namespace Libraries.Tests
         {
         }
 
-        [Test]
-        public void TestTrailingZerosFunction()
+        [TestCase(2016,502,TestName = "Test TrailingZero Function for 2016!")]
+        public void TestTrailingZerosFunction(int n ,int expectedValue)
         {
-            Assert.AreEqual(MathAlgorithms.TrailingZeros(2016), 502);
+            Assert.AreEqual(expectedValue,MathAlgorithms.TrailingZeros(n));
         }
 
         [Test]
@@ -35,40 +35,43 @@ namespace Libraries.Tests
 
         }
 
-        [TestCase("PeakAndValley.txt",TestName = "ReadFileOfNumbers_peakAndValley")]
-        public void CanReadFile(string fileName)
+
+        [TestCase("PeakAndValley.txt", "5\n3\n1\n2\n3",TestName = "ReadFileOfNumbers_peakAndValley")]
+        public void CanReadFile(string fileName,string expectedValue)
         {
-            var reader = new StreamReadAndWrite();
 
-            reader.ReadTextFileAndStore(path + "\\" + fileName);
-
-            Assert.AreEqual(reader.FileNumbers.StringRepresentation(), "5\n3\n1\n2\n3");
-
+            Assert.AreEqual(expectedValue, ObjectsFromFileHelper.ReadTextFileAndStore(path + "\\" + fileName).StringRepresentation());
 
         }
 
   
        
-        [TestCase("PeakAndValley.txt", TestName = "MergeSortIntNumbers_peakAndValley")]
-        public void MergeSortArrayOfInt(string fileName)
+        [TestCase("PeakAndValley.txt", "1\n2\n3\n3\n5", TestName = "MergeSortIntNumbers_peakAndValley")]
+        public void MergeSortArrayOfInt(string fileName, string expectedValue)
         {
-            var reader = new StreamReadAndWrite();
-
-            reader.ReadTextFileAndStore(path + "\\" + fileName);
-
-            reader.SortNumbers();
-
-            Assert.AreEqual(reader.FileNumbers.StringRepresentation(), "1\n2\n3\n3\n5");
+            Assert.AreEqual(expectedValue,ObjectsFromFileHelper.ReadTextFileAndStore(path + "\\" + fileName).SortNumbers().StringRepresentation());
         }
 
-        [TestCase("PeakAndValley.txt", TestName = "SwapInPlace_PeakAndValley")]
-        public void TestSwapInPlace(string fileName)
+
+        [TestCase("PeakAndValley.txt",0,4, "3\n3\n1\n2\n5", TestName = "SwapInPlace_PeakAndValley")]
+        public void TestSwapInPlace(string fileName,int indexA, int indexB,string expectedValue)
         {
-            var reader = new StreamReadAndWrite();
 
-            reader.ReadTextFileAndStore(path + "\\" + fileName);
+            Assert.AreEqual(expectedValue, ObjectsFromFileHelper.ReadTextFileAndStore(path + "\\" + fileName).SwapInPlace(indexA, indexB).StringRepresentation());
+        }
 
-            Assert.AreEqual("3\n3\n1\n2\n5", reader.FileNumbers.SwapInPlace(0, 4).StringRepresentation());
+        [TestCase("HistoryArticle.txt","history",4,TestName = "Get Occurences of Word in Article_history")]
+        [TestCase("HistoryArticle.txt", "this", 0, TestName = "Get Occurences of Word in Article_this")]
+        public void TestGetWordOccurences(string fileName,string word,int expectedValue)
+        {
+
+            var dictionary = ObjectsFromFileHelper.getWordsOccurences(path + "\\" + fileName);
+
+            int value;
+
+            dictionary.TryGetValue(word, out value);
+
+            Assert.AreEqual(expectedValue, value);
         }
     }
 }
