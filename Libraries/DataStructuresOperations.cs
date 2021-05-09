@@ -106,6 +106,10 @@ namespace Libraries
         }
 
 
+        public static IList<int> SortNumbers(this IList<int> arrayOfNumbers)
+        {
+             return DataStructuresOperations.SortArray(arrayOfNumbers);
+        }
     }
 
 }
