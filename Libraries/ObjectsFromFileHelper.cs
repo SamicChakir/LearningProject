@@ -9,7 +9,7 @@ namespace Libraries
     public static class ObjectsFromFileHelper
     {
 
-        public static new List<int> ReadTextFileAndStore(string pathTofile)
+        public static List<int> ReadTextFileAndStore(string pathTofile)
         {
             var arrayOfIntegers = new List<int>();
             
@@ -23,6 +23,36 @@ namespace Libraries
 
             }
             return arrayOfIntegers;
+        }
+
+        public static List<Segment> GetSegmentsFromFile(string pathToFile)
+        {
+            var arrayofSegments = new List<Segment>();
+
+            using (StreamReader reader = File.OpenText(pathToFile))
+            {
+                string s = "";
+                while ((s = reader.ReadLine()) != null)
+                {
+                    var splitedCoordinates = s.Split(' ');
+                    if ( splitedCoordinates.Length != 4)
+                    {
+                        throw new ArgumentException($"Each Line should represent one segment with exactly two points coordinates, However found  { splitedCoordinates.Length } numbers instead of 4");
+                    }
+                    arrayofSegments.Add(
+                        new Segment(
+                            new Point(double.Parse(splitedCoordinates[0]), double.Parse(splitedCoordinates[1])),
+                            new Point(double.Parse(splitedCoordinates[2]), double.Parse(splitedCoordinates[3]))
+                            )
+                        );
+                }
+
+            }
+            if (arrayofSegments.Count != 2)
+            {
+                throw new ArgumentException($"Only the intersection of two segments is calculated, however the number of segments in the file was  {arrayofSegments.Count } numbers instead of 2");
+            }
+            return arrayofSegments;
         }
 
         public static Dictionary<string, int> getWordsOccurences(string pathToFile)
