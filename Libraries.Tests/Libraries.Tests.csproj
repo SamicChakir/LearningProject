@@ -2,16 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestCases\CaseOneTwoSegments.txt" />
+    <None Remove="TestCases\CaseTwoTwoSegments.txt" />
     <None Remove="TestCases\HistoryArticle.txt" />
     <None Remove="TestCases\PeakAndValley.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestCases\CaseTwoTwoSegments.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestCases\CaseOneTwoSegments.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestCases\HistoryArticle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

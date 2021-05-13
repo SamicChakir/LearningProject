@@ -73,5 +73,31 @@ namespace Libraries.Tests
 
             Assert.AreEqual(expectedValue, value);
         }
+
+        [TestCase("CaseOneTwoSegments.txt", null, TestName = "No Intersection Example")]
+        [TestCase("CaseTwoTwoSegments.txt", "(5,6)",TestName = "One Intersectio Example")]
+        public void TestSegmentsIntersection(string fileName,string? expectedIntersection)
+        {
+            if( !(expectedIntersection is null))
+            {
+                var segments = ObjectsFromFileHelper.GetSegmentsFromFile(path + "\\" + fileName);
+                Assert.AreEqual(
+                    expectedIntersection,
+                    DataStructuresOperations.getIntersection(segments[0],segments[1]).ToString()
+                    ) ;
+            }
+            else
+            {
+                var segments = ObjectsFromFileHelper.GetSegmentsFromFile(path + "\\" + fileName);
+                Assert.AreEqual(
+                    null,
+                    DataStructuresOperations.getIntersection(
+                        segments[0],
+                        segments[1]
+                        )
+                    );
+            }
+
+        }
     }
 }
