@@ -126,5 +126,46 @@ namespace Libraries
             }
             return null;
         }
+
+        public static (int,int) SmallestDifference(IList<int> array1, IList<int> array2)
+        {
+            var dictionnaryOfPositionsArray1 = new Dictionary<int, bool>();
+            foreach (var elem in array1)
+            {
+                dictionnaryOfPositionsArray1[elem] = true;
+            }
+            var dictionnaryOfPositionsArray2 = new Dictionary<int, bool>();
+            foreach (var elem in array2)
+            {
+                if (dictionnaryOfPositionsArray1.ContainsKey(elem))
+                {
+                    return (elem, elem);
+                }
+                else
+                {
+                    dictionnaryOfPositionsArray2[elem] = false;
+                }
+            }
+
+            var positions = dictionnaryOfPositionsArray1.Concat(dictionnaryOfPositionsArray2).ToDictionary(x => x.Key, x => x.Value); 
+            var sortedArray = SortArray(array1.Concat(array2).ToList());
+            var dictionaryOfPositions = new Dictionary<int, bool>();
+            int first = 0;
+            int second = int.MaxValue;
+
+            for (int i = 0; i < sortedArray.Count-1; i++)
+            {
+                var cur = sortedArray[i];
+                var suiv = sortedArray[i + 1];
+                if (positions[cur] != positions[suiv] && Math.Max(suiv-cur,cur-suiv) <= second-first)
+                {
+                    first = Math.Min(cur, suiv);
+                    second = Math.Max(cur, suiv);
+                }
+            }
+
+
+            return (first,second);
+        } 
     }
 }

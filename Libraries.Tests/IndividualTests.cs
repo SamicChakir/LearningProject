@@ -78,9 +78,10 @@ namespace Libraries.Tests
         [TestCase("CaseTwoTwoSegments.txt", "(5,6)",TestName = "One Intersectio Example")]
         public void TestSegmentsIntersection(string fileName,string? expectedIntersection)
         {
-            if( !(expectedIntersection is null))
+            var segments = ObjectsFromFileHelper.GetSegmentsFromFile(path + "\\" + fileName);
+            if ( !(expectedIntersection is null))
             {
-                var segments = ObjectsFromFileHelper.GetSegmentsFromFile(path + "\\" + fileName);
+                
                 Assert.AreEqual(
                     expectedIntersection,
                     DataStructuresOperations.getIntersection(segments[0],segments[1]).ToString()
@@ -88,7 +89,6 @@ namespace Libraries.Tests
             }
             else
             {
-                var segments = ObjectsFromFileHelper.GetSegmentsFromFile(path + "\\" + fileName);
                 Assert.AreEqual(
                     null,
                     DataStructuresOperations.getIntersection(
@@ -98,6 +98,14 @@ namespace Libraries.Tests
                     );
             }
 
+        }
+
+        [TestCase("SmallestDifference.txt", "(8, 11)", TestName = "Smallest Pair Difference")]
+        public void TestSmallestDifference(string fileName,string expectedpair)
+        {
+            var arrays = ObjectsFromFileHelper.ReadArraysFromLines(path + "\\" + fileName);
+            Assert.AreEqual(2, arrays.Length);
+            Assert.AreEqual(expectedpair, DataStructuresOperations.SmallestDifference(arrays[0], arrays[1]).ToString());
         }
     }
 }

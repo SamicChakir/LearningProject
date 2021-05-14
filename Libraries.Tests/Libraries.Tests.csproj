@@ -12,6 +12,7 @@
     <None Remove="TestCases\CaseTwoTwoSegments.txt" />
     <None Remove="TestCases\HistoryArticle.txt" />
     <None Remove="TestCases\PeakAndValley.txt" />
+    <None Remove="TestCases\SmallestDifference.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="TestCases\HistoryArticle.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestCases\SmallestDifference.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="TestCases\PeakAndValley.txt">
