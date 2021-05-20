@@ -166,6 +166,98 @@ namespace Libraries
 
 
             return (first,second);
-        } 
+        }
+
+        public static int MultiplyIntegersUsingAddOperator(int a, int b)
+        {
+            var res = 0;
+            var count = 0; 
+            while ( count < b)
+            {
+                res += a;
+                count++;
+            }
+            return res;
+        }
+
+        public static int DivideIntegersUsingAddOperator(int a,int b)
+        {
+            if (b == 0)
+            {
+                throw new ArgumentException($"Division by Zero Is not Possible");
+            }
+            if ( b <= 0)
+            {
+                return 0;
+            }
+            
+            int res = 0;
+            int multiplier = 0;
+            while(res < a)
+            {
+                res += b;
+                multiplier += 1;
+            }
+            return multiplier-1;
+        }
+
+        public static int SubstractIntegersUsingAddOperator(int a, int b)
+        {
+            return a + (~b + 1);
+        }
+
+        public static Dictionary<int, List<int>> GetPositions(int[] arr)
+        {
+            var res = new Dictionary<int, List<int>>();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (res.ContainsKey(arr[i]))
+                {
+                    res[arr[i]].Add(i);
+                }
+                else
+                {
+                    res[arr[i]] = new List<int> { i };
+                }
+            }
+            return res;
+        }
+        public static int[] GetIndicesOfItemWeights(int[] arr, int limit)
+        {
+            Dictionary<int, List<int>> positions = GetPositions(arr);
+
+            var cur_weight = 0;
+            while(cur_weight <= limit / 2)
+            {
+                if (positions.ContainsKey(cur_weight))
+                {
+                    if (cur_weight == limit / 2)
+                    {
+                        var cur_indices = positions[cur_weight];
+                        if (cur_indices.Count >= 2)
+                        {
+                            return new int[] { cur_indices.Last(), cur_indices[cur_indices.Count - 2] };
+                        }
+                    }
+                    else
+                    {
+                        if (positions.ContainsKey(limit - cur_weight))
+                        {
+                            var firstindex = positions[cur_weight].Last();
+                            var secondIndex = positions[limit - cur_weight].Last();
+                            return new int[] { Math.Max(firstindex, secondIndex), Math.Min(firstindex, secondIndex) };
+                        }
+                    }
+                }
+                
+                cur_weight++;
+                
+            }
+        
+            return new int[0];
+        }
+
+
+       
     }
 }

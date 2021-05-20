@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Text;
+using Libraries.TreesDataModel;
 
 namespace Libraries
 {
@@ -113,6 +114,18 @@ namespace Libraries
             return arrayOfLists;
         }
         
+        public static BinarySearchTree<int> TreeFromFile(string pathToFile)
+        {
+            /*
+            using (StreamReader reader = File.OpenText(pathToFile))
+            {
+                string s = "";
+                while( (s =reader.ReadLine()) != null)
+                {
 
+                }
+            }*/
+            return null;
+        }
     }
 }

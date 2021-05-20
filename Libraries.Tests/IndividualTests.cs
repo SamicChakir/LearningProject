@@ -107,5 +107,47 @@ namespace Libraries.Tests
             Assert.AreEqual(2, arrays.Length);
             Assert.AreEqual(expectedpair, DataStructuresOperations.SmallestDifference(arrays[0], arrays[1]).ToString());
         }
+        [TestCase("5","3","15")]
+        [TestCase("5", "0", "0")]
+        public void TestMultiplication(string a, string b,string expectedResult)
+        {
+            Assert.AreEqual(expectedResult,DataStructuresOperations.MultiplyIntegersUsingAddOperator(int.Parse(a), int.Parse(b)).ToString());
+        }
+        [TestCase("5", "3", "2")]
+        [TestCase("5", "-5", "10")]
+        public void TestSubstraction(string a, string b, string expectedResult)
+        {
+            Assert.AreEqual(expectedResult, DataStructuresOperations.SubstractIntegersUsingAddOperator(int.Parse(a), int.Parse(b)).ToString());
+        }
+        [TestCase("5", "3", "1")]
+        [TestCase("5", "-5", "0")]
+        public void TestDivision(string a, string b, string expectedResult)
+        {
+            Assert.AreEqual(expectedResult, DataStructuresOperations.DivideIntegersUsingAddOperator(int.Parse(a), int.Parse(b)).ToString());
+        }
+
+        [Test]
+        public void TestMerging2Packages()
+        {
+            var arr = new int[] { 12, 6, 7, 14, 19, 3, 0, 25, 40};
+            var limit = 7;
+            Assert.AreEqual(new int[] { 6,2},DataStructuresOperations.GetIndicesOfItemWeights(arr,limit));
+
+        }
+        [TestCase("4(2(3)(1))(6(5))")]
+        public void TestTreeFromString(string s)
+        {
+            var tree = TreesOperations.TreeFromString(s);
+        }
+
+        [Test]
+        public void MyTest()
+        {
+            var t = "##!r#po#";
+            var t1 = t.Split('#');
+            var t2 = 'a' < 'd';
+            var t3 = 'd' < 'z';
+        }
+
     }
 }
