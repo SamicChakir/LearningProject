@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Text;
+using Libraries.TreesDataModel;
 
 namespace Libraries
 {
@@ -87,7 +88,44 @@ namespace Libraries
             return Occurences;
         }
 
-        
 
+        public static List<int>[] ReadArraysFromLines(string pathToFile)
+        {
+            var arrayOfLists = new List<int>[2];
+
+            using (StreamReader reader = File.OpenText(pathToFile))
+            {
+                string s = "";
+                var cur = 0;
+                while ((s = reader.ReadLine()) != null)
+                {
+                    var splitedCoordinates = s.Split(' ');
+                    var cur_list = new List<int>();
+                    foreach(var elem in splitedCoordinates)
+                    {
+                        cur_list.Add(int.Parse(elem));
+                    }
+                    arrayOfLists[cur] = cur_list;
+                    cur++;
+                }
+
+            }
+            
+            return arrayOfLists;
+        }
+        
+        public static BinarySearchTree<int> TreeFromFile(string pathToFile)
+        {
+            /*
+            using (StreamReader reader = File.OpenText(pathToFile))
+            {
+                string s = "";
+                while( (s =reader.ReadLine()) != null)
+                {
+
+                }
+            }*/
+            return null;
+        }
     }
 }
